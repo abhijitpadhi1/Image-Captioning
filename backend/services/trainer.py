@@ -1,5 +1,13 @@
 from training.preprocessing import Preprocessor
 from training.train import ModelTrainer
+from utils.config import (
+    BATCH_SIZE,
+    EMBED_SIZE,
+    HIDDEN_SIZE,
+    FEATURE_DIM,
+    NUM_EPOCHS,
+    VOCAB_FREQ_THRESHOLD
+)
 
 
 def start_training_service():
@@ -7,8 +15,8 @@ def start_training_service():
     preprocessor = Preprocessor()
 
     dataloader, vocab, transform, image_to_captions, vocab_size = preprocessor.load_data(
-        batch_size=8,
-        vocab_freq_threshold=2
+        batch_size=BATCH_SIZE,
+        vocab_freq_threshold=VOCAB_FREQ_THRESHOLD
     )
 
     ## Initialize Trainer
@@ -17,14 +25,14 @@ def start_training_service():
         vocab=vocab,
         transform=transform,
         # For decoder
-        feature_dim=2048,
-        embed_size=256,
-        hidden_size=256,
+        feature_dim=FEATURE_DIM,
+        embed_size=EMBED_SIZE,
+        hidden_size=HIDDEN_SIZE,
         vocab_size=vocab_size
     )
     
     ## Train the model
-    trainer.train(num_epochs=10)
+    trainer.train(num_epochs=NUM_EPOCHS)
 
     ## BLUE evaluation
     bleu_beam = trainer.bleu_score(
