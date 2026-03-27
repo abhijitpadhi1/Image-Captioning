@@ -7,8 +7,9 @@ from training.inference import generate_caption_greedy, load_model, generate_cap
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the model and vocab
+# vocab = torch.load("checkpoints/vocab.pth")
 vocab = torch.load("checkpoints/vocab.pth")
-encoder, decoder = load_model(len(vocab), device)
+encoder, decoder = load_model(len(vocab.itos), device)
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),

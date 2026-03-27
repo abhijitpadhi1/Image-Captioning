@@ -71,6 +71,10 @@ class ModelTrainer:
 
     def train(self, num_epochs=10):
         best_loss = float('inf')
+        if self.device.type == 'cuda':
+            print("Using GPU for training")
+        else:
+            print("Using CPU for training. Consider using a GPU for faster training.")
         ## Training with fine-tuneing encoder
         for epoch in range(num_epochs):
             # Fine-tune encoder AFTER 5 epochs
