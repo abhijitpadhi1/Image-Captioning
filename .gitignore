@@ -39,12 +39,10 @@ dist-ssr
 .npm
 
 # Model checkpoints 
-checkpoints/
 *.ckpt
 *.pt
 *.pth
 *.bin
 *.h5
 *.model
-*.json
 

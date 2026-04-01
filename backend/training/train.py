@@ -9,6 +9,7 @@ import torch.nn as nn
 from model.decoder import DecoderWithAttention
 from model.encoder import EncoderCNN
 from training.inference import generate_caption_greedy, generate_caption_beam
+from utils.model_utils import save_model_to_hf
 from utils.config import CHECKPOINT_PATH, EMBED_SIZE, FEATURE_DIM, HIDDEN_SIZE
 
 class ModelTrainer:
@@ -121,7 +122,8 @@ class ModelTrainer:
 
             print(f"Epoch {epoch+1}, Loss: {loss:.4f}")
 
-
+    def save_model_to_hf(self, model_path="checkpoints/model.pth"):
+        save_model_to_hf(model_path)
 
     def bleu_score(self, image_paths, image_to_captions, inference, max_samples=1000):
         self.encoder.eval()

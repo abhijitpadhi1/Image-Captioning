@@ -2,15 +2,12 @@ import torch
 
 from model.encoder import EncoderCNN
 from model.decoder import DecoderWithAttention
-
-import torch
-from utils.config import CHECKPOINT_PATH
-from model.encoder import EncoderCNN
-from model.decoder import DecoderWithAttention
+from utils.model_utils import get_model_path
 
 
 def load_model(device):
-    checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
+    model_path = get_model_path()
+    checkpoint = torch.load(model_path, map_location=device)
 
     cfg = checkpoint["config"]
 

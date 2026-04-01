@@ -35,6 +35,9 @@ def start_training_service():
     ## Train the model
     trainer.train(num_epochs=NUM_EPOCHS)
 
+    ## Upload the model to Hugging Face
+    trainer.save_model_to_hf("checkpoints/model.pth")
+
     ## BLUE evaluation
     bleu_beam = trainer.bleu_score(
         image_paths=list(image_to_captions.keys()),

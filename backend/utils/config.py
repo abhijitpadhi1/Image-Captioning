@@ -13,6 +13,10 @@ SAMPLE_CNT_BLEU = 10
 CHECKPOINT_PATH = "checkpoints/model.pth"
 VOCAB_PATH = "checkpoints/vocab.json"
 
+HF_REPO_ID = "abhijitpadhi1/image-captioning-model"
+HF_MODEL_FILENAME = "model.pth"
+
+
 BATCH_SIZE = 16
 EMBED_SIZE = 64
 HIDDEN_SIZE = 64
