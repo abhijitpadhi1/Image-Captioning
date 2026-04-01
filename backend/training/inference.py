@@ -3,12 +3,24 @@ import torch
 from model.encoder import EncoderCNN
 from model.decoder import DecoderWithAttention
 
+import torch
+from utils.config import CHECKPOINT_PATH
+from model.encoder import EncoderCNN
+from model.decoder import DecoderWithAttention
 
-def load_model(vocab_size, device):
+
+def load_model(device):
+    checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
+
+    cfg = checkpoint["config"]
+
     encoder = EncoderCNN().to(device)
-    decoder = DecoderWithAttention(2048, 512, 512, vocab_size).to(device)
-
-    checkpoint = torch.load("checkpoints/model.pth", map_location=device)
+    decoder = DecoderWithAttention(
+        feature_dim=cfg["feature_dim"],
+        embed_size=cfg["embed_size"],
+        hidden_size=cfg["hidden_size"],
+        vocab_size=cfg["vocab_size"]
+    ).to(device)
 
     encoder.load_state_dict(checkpoint["encoder"])
     decoder.load_state_dict(checkpoint["decoder"])

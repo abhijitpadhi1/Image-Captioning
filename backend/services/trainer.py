@@ -6,7 +6,8 @@ from utils.config import (
     HIDDEN_SIZE,
     FEATURE_DIM,
     NUM_EPOCHS,
-    VOCAB_FREQ_THRESHOLD
+    VOCAB_FREQ_THRESHOLD,
+    SAMPLE_CNT_BLEU
 )
 
 
@@ -38,12 +39,14 @@ def start_training_service():
     bleu_beam = trainer.bleu_score(
         image_paths=list(image_to_captions.keys()),
         image_to_captions=image_to_captions,
-        inference="beam"
+        inference="beam",
+        max_samples=SAMPLE_CNT_BLEU
     )
     bleu_greedy = trainer.bleu_score(
         image_paths=list(image_to_captions.keys()),
         image_to_captions=image_to_captions,
-        inference="greedy"
+        inference="greedy",
+        max_samples=SAMPLE_CNT_BLEU
     )
 
     return {

@@ -37,3 +37,14 @@ dist-ssr
 
 # Optional npm cache directory
 .npm
+
+# Model checkpoints 
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.h5
+*.model
+*.json
+

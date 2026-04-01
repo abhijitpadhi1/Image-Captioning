@@ -3,11 +3,13 @@ import torch
 import torchvision.transforms as transforms
 
 from training.inference import load_model
+from utils.vocab_utils import load_vocab
+from utils.config import VOCAB_PATH
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-vocab = torch.load("checkpoints/vocab.pth")
-encoder, decoder = load_model(len(vocab), device)
+vocab = load_vocab(VOCAB_PATH)
+encoder, decoder = load_model(device)
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),

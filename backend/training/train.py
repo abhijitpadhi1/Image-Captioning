@@ -1,3 +1,5 @@
+from json import decoder
+
 from tqdm import tqdm
 from PIL import Image
 from nltk.translate.bleu_score import corpus_bleu
@@ -7,12 +9,14 @@ import torch.nn as nn
 from model.decoder import DecoderWithAttention
 from model.encoder import EncoderCNN
 from training.inference import generate_caption_greedy, generate_caption_beam
+from utils.config import CHECKPOINT_PATH, EMBED_SIZE, FEATURE_DIM, HIDDEN_SIZE
 
 class ModelTrainer:
     def __init__(self, dataloader, vocab, transform, feature_dim = 2048, embed_size = 256, hidden_size = 256, vocab_size = 5000):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.embed_size = embed_size
         self.hidden_size = hidden_size
+        self.vocab_size = vocab_size
         self.dataloader = dataloader
         self.transform = transform
 
@@ -105,11 +109,15 @@ class ModelTrainer:
                 best_loss = loss
                 print(f"New best loss: {best_loss:.4f}. Saving model...")
                 torch.save({
-                    'encoder_state_dict': self.encoder.state_dict(),
-                    'decoder_state_dict': self.decoder.state_dict(),
-                    'optimizer_state_dict': self.optimizer.state_dict(),
-                    'loss': best_loss,
-                }, "checkpoints/model.pth")
+                    "config": {
+                        "embed_size": EMBED_SIZE,
+                        "hidden_size": HIDDEN_SIZE,
+                        "feature_dim": FEATURE_DIM,
+                        "vocab_size": self.vocab_size
+                    },
+                    "encoder": self.encoder.state_dict(),
+                    "decoder": self.decoder.state_dict()
+                }, CHECKPOINT_PATH)
 
             print(f"Epoch {epoch+1}, Loss: {loss:.4f}")
 

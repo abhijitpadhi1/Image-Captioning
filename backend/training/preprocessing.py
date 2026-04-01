@@ -1,13 +1,14 @@
 import os
 import kagglehub
 import pandas as pd
-import torch
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from collections import defaultdict
 
 from data.flickr import FlickrDataset
 from data.vocab import Vocabulary
+from utils.vocab_utils import save_vocab, load_vocab
+from utils.config import DATA_FRACTION, VOCAB_PATH
 
 
 class Preprocessor:
@@ -35,6 +36,10 @@ class Preprocessor:
 
     def create_dataset(self):
         df = pd.read_csv(self.caption_file)
+
+        ## For fractional use of dataset, uncomment below line
+        df = df.sample(frac=DATA_FRACTION, random_state=42).reset_index(drop=True)
+        print(f"Using Dataset size: {len(df)}")
 
         image_paths = []
         captions = []
@@ -75,6 +80,7 @@ class Preprocessor:
         )
 
         ## Save vocab for inference
-        torch.save(self.vocab, "checkpoints/vocab.pth")
+        # torch.save(self.vocab, "checkpoints/vocab.pth")
+        save_vocab(self.vocab, VOCAB_PATH)
 
         return loader, self.vocab, self.transform, image_to_captions, vocab_size

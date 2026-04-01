@@ -3,13 +3,16 @@ import torch
 import torchvision.transforms as transforms
 
 from training.inference import generate_caption_greedy, load_model, generate_caption_beam
+from utils.config import VOCAB_PATH
+from utils.vocab_utils import load_vocab
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load the model and vocab
-# vocab = torch.load("checkpoints/vocab.pth")
-vocab = torch.load("checkpoints/vocab.pth")
-encoder, decoder = load_model(len(vocab.itos), device)
+# Load the vocab
+vocab = load_vocab(VOCAB_PATH)
+
+# Load the model
+encoder, decoder = load_model(device)
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),

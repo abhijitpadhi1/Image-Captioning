@@ -1,3 +1,4 @@
+DATA_FRACTION = 0.05
 # BATCH_SIZE = 16
 # EMBED_SIZE = 256
 # HIDDEN_SIZE = 256
@@ -7,7 +8,10 @@
 # LEARNING_RATE = 1e-3
 # FINETUNING_LR = 1e-4
 # NUM_EPOCHS = 10
+SAMPLE_CNT_BLEU = 10
 
+CHECKPOINT_PATH = "checkpoints/model.pth"
+VOCAB_PATH = "checkpoints/vocab.json"
 
 BATCH_SIZE = 16
 EMBED_SIZE = 64
