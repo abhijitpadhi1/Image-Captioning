@@ -3,12 +3,14 @@ from fastapi import FastAPI, UploadFile, File
 from services.trainer import start_training_service
 from services.captioning import predict_caption_service
 from services.visualize import visualize_attention_service
+from utils.logger import logger
 
 app = FastAPI()
 
 
 @app.get("/")
 def home():
+    logger.info("API Root accessed")
     return {"message": "Image Captioning API Running"}
 
 

@@ -5,14 +5,26 @@ import torchvision.transforms as transforms
 from training.inference import generate_caption_greedy, load_model, generate_caption_beam
 from utils.config import VOCAB_PATH
 from utils.vocab_utils import load_vocab
+from utils.logger import logger
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load the vocab
-vocab = load_vocab(VOCAB_PATH)
+# Global cache for vocab and model to avoid reloading on every request
+_encoder = None
+_decoder = None
+_vocab = None
 
-# Load the model
-encoder, decoder = load_model(device)
+# Load the vocab and model at startup
+def load_model_and_vocab():
+    global _encoder, _decoder, _vocab
+    if _encoder is None or _decoder is None or _vocab is None:
+        print("Loading model and vocab...")
+        _vocab = load_vocab(VOCAB_PATH)
+        _encoder, _decoder = load_model(device)
+        print("Model and vocab loaded.")
+        logger.info("Model and vocab loaded.")
+    return _encoder, _decoder, _vocab
+
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -27,6 +39,7 @@ transform = transforms.Compose([
 async def predict_caption_service(file, method="beam"):
     image = Image.open(file.file).convert("RGB")
     image_tensor = transform(image)
+    encoder, decoder, vocab = load_model_and_vocab()
 
     if method == "beam":
         caption = generate_caption_beam(
@@ -38,6 +51,8 @@ async def predict_caption_service(file, method="beam"):
         )
     else:
         raise ValueError(f"Unknown method: {method}")
+    
+    logger.info(f"Generated caption using {method} search: {caption}")
 
     return {
         "caption": caption,

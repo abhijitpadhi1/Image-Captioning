@@ -8,8 +8,20 @@ from utils.config import VOCAB_PATH
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-vocab = load_vocab(VOCAB_PATH)
-encoder, decoder = load_model(device)
+# Global cache for vocab and model to avoid reloading on every request
+_encoder = None
+_decoder = None
+_vocab = None
+
+# Load the vocab and model at startup
+def load_model_and_vocab():
+    global _encoder, _decoder, _vocab
+    if _encoder is None or _decoder is None or _vocab is None:
+        print("Loading model and vocab...")
+        _vocab = load_vocab(VOCAB_PATH)
+        _encoder, _decoder = load_model(device)
+        print("Model and vocab loaded.")
+    return _encoder, _decoder, _vocab
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -62,6 +74,7 @@ def generate_caption_with_attention(encoder, decoder, image, vocab, device, max_
 async def visualize_attention_service(file):
     image = Image.open(file.file).convert("RGB")
     image_tensor = transform(image)
+    encoder, decoder, vocab = load_model_and_vocab()
 
     caption, attention = generate_caption_with_attention(
         encoder, decoder, image_tensor, vocab, device
