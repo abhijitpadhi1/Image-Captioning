@@ -21,12 +21,18 @@ The frontend provides an intuitive interface where users can:
 
 ```mermaid
 flowchart LR
+    subgraph Results
+        direction TB
+        C[Caption Tab]
+        D[Attention Tab]
+    end
     A[Upload Image] --> B[Loading State]
-    B --> C[Caption Tab]
-    B --> D[Attention Tab]
+    B --> C
     C <--> D
     C --> E[Reset]
+    B --> D
     D --> E
+    E --> F[Done]
 ````
 
 ---
@@ -106,8 +112,16 @@ POST /api/visualize
 ```mermaid
 flowchart LR
     A[User Upload] --> B[FormData]
-    B --> C[/api/predict]
-    B --> D[/api/visualize]
+
+    subgraph Backend APIs
+        direction TB
+        C[API Predict]
+        D[API Visualize]
+    end
+
+    B --> C
+    B --> D
+
     C --> E[Caption Response]
     D --> F[Attention Maps]
 ```
