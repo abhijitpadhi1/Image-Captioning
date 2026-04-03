@@ -15,6 +15,7 @@ VOCAB_PATH = "checkpoints/vocab.json"
 
 HF_REPO_ID = "abhijitpadhi1/image-captioning-model"
 HF_MODEL_FILENAME = "model.pth"
+HF_VOCAB_FILENAME = "vocab.json"
 
 
 BATCH_SIZE = 16
