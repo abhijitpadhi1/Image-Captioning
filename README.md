@@ -54,8 +54,8 @@ flowchart LR
     A[User] --> B[React Frontend]
     B --> C[FastAPI Backend]
     C --> D[Model Loader]
-    D --> E[Encoder (CNN)]
-    E --> F[Decoder (LSTM + Attention)]
+    D --> E[Encoder - CNN]
+    E --> F[Decoder - LSTM + Attention]
     F --> G[Generated Caption]
     D --> H[Hugging Face Hub]
 ````
