@@ -11,3 +11,4 @@ nltk==3.8.1
 tqdm==4.66.2
 
 huggingface_hub==0.23.0
+kagglehub==1.0.0
