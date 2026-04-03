@@ -10,8 +10,8 @@ DATA_FRACTION = 0.05
 # NUM_EPOCHS = 10
 SAMPLE_CNT_BLEU = 10
 
-CHECKPOINT_PATH = "checkpoints/model.pth"
-VOCAB_PATH = "checkpoints/vocab.json"
+CHECKPOINT_PATH = "backend/checkpoints/model.pth"
+VOCAB_PATH = "backend/checkpoints/vocab.json"
 
 HF_REPO_ID = "abhijitpadhi1/image-captioning-model"
 HF_MODEL_FILENAME = "model.pth"

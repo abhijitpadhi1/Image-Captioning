@@ -7,7 +7,9 @@ from ..utils.config import (
     FEATURE_DIM,
     NUM_EPOCHS,
     VOCAB_FREQ_THRESHOLD,
-    SAMPLE_CNT_BLEU
+    SAMPLE_CNT_BLEU,
+    CHECKPOINT_PATH,
+    VOCAB_PATH
 )
 
 
@@ -36,7 +38,7 @@ def start_training_service():
     trainer.train(num_epochs=NUM_EPOCHS)
 
     ## Upload the model to Hugging Face
-    trainer.save_model_to_hf("checkpoints/model.pth")
+    trainer.save_model_to_hf(CHECKPOINT_PATH)
 
     ## BLUE evaluation
     bleu_beam = trainer.bleu_score(
