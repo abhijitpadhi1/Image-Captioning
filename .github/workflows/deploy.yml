@@ -1,0 +1,38 @@
+name: Deploy to Hugging Face Spaces
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install git-lfs
+        run: |
+          sudo apt-get update
+          sudo apt-get install git-lfs -y
+          git lfs install
+
+      - name: Clone HF Space
+        run: |
+          git clone https://user:${{ secrets.HF_ACCESS_TOKEN }}@huggingface.co/spaces/abhijitpadhi1/Image-Captioning hf_space
+
+      - name: Copy files to HF Space
+        run: |
+          rsync -av --exclude '.git' ./ hf_space/
+
+      - name: Push to HF Space
+        run: |
+          cd hf_space
+          git config user.email "you@example.com"
+          git config user.name "github-actions"
+          git add .
+          git commit -m "Auto deploy from GitHub" || echo "No changes to commit"
+          git push
+
