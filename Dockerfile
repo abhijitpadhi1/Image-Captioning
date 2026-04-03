@@ -8,6 +8,13 @@ COPY backend ./backend
 # Copy frontend build
 COPY frontend/dist ./frontend/dist
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN echo "Rebuilding dependencies..."
+
 # Install dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
