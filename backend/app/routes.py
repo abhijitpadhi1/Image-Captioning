@@ -1,9 +1,9 @@
 from fastapi import FastAPI, UploadFile, File
 
-from services.trainer import start_training_service
-from services.captioning import predict_caption_service
-from services.visualize import visualize_attention_service
-from utils.logger import logger
+from ..services.trainer import start_training_service
+from ..services.captioning import predict_caption_service
+from ..services.visualize import visualize_attention_service
+from ..utils.logger import logger
 
 app = FastAPI()
 

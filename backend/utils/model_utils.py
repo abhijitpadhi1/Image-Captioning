@@ -2,7 +2,7 @@ from huggingface_hub import hf_hub_download, HfApi
 import os
 import shutil
 
-from utils.config import HF_REPO_ID, HF_MODEL_FILENAME
+from ..utils.config import HF_REPO_ID, HF_MODEL_FILENAME
 
 def get_model_path(local_path="checkpoints/model.pth"):
     # If already exists then use it

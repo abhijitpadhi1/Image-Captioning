@@ -1,6 +1,6 @@
 import json
 
-from data.vocab import Vocabulary
+from ..data.vocab import Vocabulary
     
 
 def save_vocab(vocab, path):

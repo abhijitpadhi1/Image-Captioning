@@ -2,10 +2,10 @@ from PIL import Image
 import torch
 import torchvision.transforms as transforms
 
-from training.inference import generate_caption_greedy, load_model, generate_caption_beam
-from utils.config import VOCAB_PATH
-from utils.vocab_utils import load_vocab
-from utils.logger import logger
+from ..training.inference import generate_caption_greedy, load_model, generate_caption_beam
+from ..utils.config import VOCAB_PATH
+from ..utils.vocab_utils import load_vocab
+from ..utils.logger import logger
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

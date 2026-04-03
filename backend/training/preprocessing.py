@@ -5,10 +5,10 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from collections import defaultdict
 
-from data.flickr import FlickrDataset
-from data.vocab import Vocabulary
-from utils.vocab_utils import save_vocab, load_vocab
-from utils.config import DATA_FRACTION, VOCAB_PATH
+from ..data.flickr import FlickrDataset
+from ..data.vocab import Vocabulary
+from ..utils.vocab_utils import save_vocab, load_vocab
+from ..utils.config import DATA_FRACTION, VOCAB_PATH
 
 
 class Preprocessor:

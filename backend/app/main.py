@@ -1,6 +1,6 @@
 # from services.trainer import start_training_service
-from services.trainer import start_training_service
-from utils.setup import download_nltk_resources
+from ..services.trainer import start_training_service
+from ..utils.setup import download_nltk_resources
 
 def main():
     print("Initializing the NLTK resources...")

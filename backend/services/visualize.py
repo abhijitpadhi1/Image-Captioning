@@ -2,9 +2,9 @@ from PIL import Image
 import torch
 import torchvision.transforms as transforms
 
-from training.inference import load_model
-from utils.vocab_utils import load_vocab
-from utils.config import VOCAB_PATH
+from ..training.inference import load_model
+from ..utils.vocab_utils import load_vocab
+from ..utils.config import VOCAB_PATH
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

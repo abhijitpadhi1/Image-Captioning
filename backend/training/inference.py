@@ -1,8 +1,8 @@
 import torch
 
-from model.encoder import EncoderCNN
-from model.decoder import DecoderWithAttention
-from utils.model_utils import get_model_path
+from ..model.encoder import EncoderCNN
+from ..model.decoder import DecoderWithAttention
+from ..utils.model_utils import get_model_path
 
 
 def load_model(device):

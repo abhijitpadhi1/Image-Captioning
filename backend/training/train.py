@@ -6,11 +6,11 @@ from nltk.translate.bleu_score import corpus_bleu
 import torch
 import torch.nn as nn
 
-from model.decoder import DecoderWithAttention
-from model.encoder import EncoderCNN
-from training.inference import generate_caption_greedy, generate_caption_beam
-from utils.model_utils import save_model_to_hf
-from utils.config import CHECKPOINT_PATH, EMBED_SIZE, FEATURE_DIM, HIDDEN_SIZE
+from ..model.decoder import DecoderWithAttention
+from ..model.encoder import EncoderCNN
+from ..training.inference import generate_caption_greedy, generate_caption_beam
+from ..utils.model_utils import save_model_to_hf
+from ..utils.config import CHECKPOINT_PATH, EMBED_SIZE, FEATURE_DIM, HIDDEN_SIZE
 
 class ModelTrainer:
     def __init__(self, dataloader, vocab, transform, feature_dim = 2048, embed_size = 256, hidden_size = 256, vocab_size = 5000):

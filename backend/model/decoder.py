@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model.attention import Attention
+from ..model.attention import Attention
 
 class DecoderWithAttention(nn.Module):
     def __init__(self, feature_dim, embed_size, hidden_size, vocab_size):

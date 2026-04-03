@@ -1,6 +1,6 @@
-from training.preprocessing import Preprocessor
-from training.train import ModelTrainer
-from utils.config import (
+from ..training.preprocessing import Preprocessor
+from ..training.train import ModelTrainer
+from ..utils.config import (
     BATCH_SIZE,
     EMBED_SIZE,
     HIDDEN_SIZE,
