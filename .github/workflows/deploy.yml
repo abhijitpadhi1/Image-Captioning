@@ -13,21 +13,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Free disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/hostedtoolcache
-
-      - name: Build frontend
-        run: |
-          cd frontend
-          npm ci
-          npm run build
-          rm -rf node_modules
-          cd ..
-
       - name: Install git-lfs
         run: |
           sudo apt-get update
@@ -36,17 +21,11 @@ jobs:
 
       - name: Clone HF Space
         run: |
-          git clone https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/YOUR-USERNAME/YOUR-SPACE hf_space
+          git clone https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/your-username/image-captioning-app hf_space
 
       - name: Copy files to HF Space
         run: |
-          rsync -av \
-            --exclude '.git' \
-            --exclude 'node_modules' \
-            --exclude '__pycache__' \
-            --exclude '*.pth' \
-            --exclude '.venv' \
-            ./ hf_space/
+          rsync -av --exclude '.git' ./ hf_space/
 
       - name: Push to HF Space
         run: |
@@ -54,5 +33,5 @@ jobs:
           git config user.email "you@example.com"
           git config user.name "github-actions"
           git add .
-          git commit -m "Auto deploy from GitHub" || echo "No changes"
+          git commit -m "Auto deploy from GitHub" || echo "No changes to commit"
           git push
