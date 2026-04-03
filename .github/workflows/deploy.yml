@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install git-lfs
         run: |
@@ -21,7 +21,7 @@ jobs:
 
       - name: Clone HF Space
         run: |
-          git clone https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/your-username/image-captioning-app hf_space
+          git clone https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/abhijitpadhi1/Image-Captioning hf_space
 
       - name: Copy files to HF Space
         run: |
