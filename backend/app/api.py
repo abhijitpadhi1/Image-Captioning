@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.routes import app as router
 
@@ -13,7 +14,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/", router)
+# API routes
+app.mount("/api", router)
+
+# Serve frontend static files if needed (optional)
+app.mount("/", StaticFiles(directory="../frontend/dist", html=True), name="frontend")
 
 if __name__ == "__main__":
     import uvicorn

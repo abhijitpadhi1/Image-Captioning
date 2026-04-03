@@ -23,7 +23,7 @@ def train():
 # Caption prediction
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    return await predict_caption_service(file)
+    return predict_caption_service(file)
 
 
 # Attention visualization

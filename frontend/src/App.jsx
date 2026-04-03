@@ -6,11 +6,17 @@ export default function App() {
   const [started, setStarted] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div
+      style={{
+        transition: "opacity 0.4s ease",
+      }}
+    >
       {!started ? (
         <Landing onStart={() => setStarted(true)} />
       ) : (
-        <Upload />
+        <div className="animate-fade-in">
+          <Upload />
+        </div>
       )}
     </div>
   );
