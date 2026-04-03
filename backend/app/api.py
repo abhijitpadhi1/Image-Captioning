@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.routes import app as router
+from backend.app.routes import app as router
 
 app = FastAPI(title="Image Captioning API", description="API for training, predicting captions, and visualizing attention maps for images.")
 
