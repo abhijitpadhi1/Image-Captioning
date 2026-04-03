@@ -13,11 +13,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache
+
       - name: Build frontend
         run: |
           cd frontend
-          npm install
+          npm ci
           npm run build
+          rm -rf node_modules
           cd ..
 
       - name: Install git-lfs
@@ -32,7 +40,13 @@ jobs:
 
       - name: Copy files to HF Space
         run: |
-          rsync -av --exclude '.git' ./ hf_space/
+          rsync -av \
+            --exclude '.git' \
+            --exclude 'node_modules' \
+            --exclude '__pycache__' \
+            --exclude '*.pth' \
+            --exclude '.venv' \
+            ./ hf_space/
 
       - name: Push to HF Space
         run: |
