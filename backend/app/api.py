@@ -18,7 +18,7 @@ app.add_middleware(
 app.mount("/api", router)
 
 # Serve frontend static files if needed (optional)
-app.mount("/", StaticFiles(directory="../frontend/dist", html=True), name="frontend")
+app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="frontend")
 
 if __name__ == "__main__":
     import uvicorn
