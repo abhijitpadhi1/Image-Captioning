@@ -20,6 +20,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules/
+dist/
+build/
+coverage/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
 
 # Editor directories and files
 .vscode/*
