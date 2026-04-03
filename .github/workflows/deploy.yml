@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone HF Space
         run: |
-          git clone https://user:${{ secrets.HF_ACCESS_TOKEN }}@huggingface.co/spaces/abhijitpadhi1/Image-Captioning hf_space
+          git clone https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/YOUR-USERNAME/YOUR-SPACE hf_space
 
       - name: Copy files to HF Space
         run: |
@@ -40,6 +40,5 @@ jobs:
           git config user.email "you@example.com"
           git config user.name "github-actions"
           git add .
-          git commit -m "Auto deploy from GitHub" || echo "No changes to commit"
+          git commit -m "Auto deploy from GitHub" || echo "No changes"
           git push
-
