@@ -1,16 +1,227 @@
-# React + Vite
+# **Frontend: Image Captioning Interface (UI + Service Layer)**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This document describes the frontend layer of the Image Captioning system.  
+The frontend is responsible for **user interaction, visualization, and communication with the backend ML service**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📌 Overview
 
-## React Compiler
+The frontend provides an intuitive interface where users can:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Upload an image
+- Generate captions
+- Visualize attention heatmaps
+- Toggle between results
+- Reset and test new inputs
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧭 UI Flow
+
+```mermaid
+flowchart LR
+    A[Upload Image] --> B[Loading State]
+    B --> C[Caption Tab]
+    B --> D[Attention Tab]
+    C <--> D
+    C --> E[Reset]
+    D --> E
+````
+
+---
+
+## 🧠 Frontend Role in System
+
+The frontend acts as a **presentation and service layer**, while all ML computation happens in the backend.
+
+### System Interaction
+
+```mermaid
+flowchart LR
+    A[User] --> B[React UI]
+    B --> C[FastAPI Backend]
+    C --> D[Model Inference]
+    D --> C
+    C --> B
+    B --> A
+```
+
+---
+
+## ⚙️ Tech Stack
+
+* React (Vite)
+* TailwindCSS
+* Axios (API calls)
+
+---
+
+## 🧩 Component Architecture
+
+```mermaid
+flowchart LR
+    A[App] --> B[Upload Component]
+    A --> C[Tabs Component]
+    C --> D[Caption View]
+    C --> E[Attention View]
+```
+
+### Key Components
+
+### 🔹 Upload Component
+
+* Handles image selection
+* Triggers API calls
+* Manages loading state
+
+### 🔹 Tabs Component
+
+* Toggles between:
+
+  * Caption view
+  * Attention visualization
+
+### 🔹 Caption View
+
+* Displays generated caption
+
+### 🔹 Attention View
+
+* Displays attention heatmap overlay
+
+---
+
+## 🔄 API Integration
+
+### Endpoints Used
+
+```text
+POST /api/predict
+POST /api/visualize
+```
+
+### Request Flow
+
+```mermaid
+flowchart LR
+    A[User Upload] --> B[FormData]
+    B --> C[/api/predict]
+    B --> D[/api/visualize]
+    C --> E[Caption Response]
+    D --> F[Attention Maps]
+```
+
+### Response Handling
+
+* Caption stored in state
+* Attention maps rendered as images
+* UI updated dynamically
+
+---
+
+## 🧠 State Management
+
+Key states:
+
+```text
+image        → uploaded image preview
+caption      → generated caption
+attention    → heatmap output
+loading      → API call state
+loaded       → result ready flag
+activeTab    → UI toggle
+```
+
+---
+
+## ⏳ Loading Behavior
+
+```mermaid
+flowchart LR
+    A[Upload Click] --> B[Set Loading = true]
+    B --> C[Show Spinner]
+    C --> D[API Call]
+    D --> E[Receive Response]
+    E --> F[Set Loading = false]
+    F --> G[Render Tabs]
+```
+
+### Why This Matters
+
+* Prevents UI freeze
+* Improves user experience
+* Clearly separates system states
+
+---
+
+## 🔁 Reset Flow
+
+```mermaid
+flowchart LR
+    A[Reset Button] --> B[Clear States]
+    B --> C[Return to Upload Screen]
+```
+
+---
+
+## 🎯 Design Decisions
+
+### 🔹 Why Separate Tabs?
+
+* Avoid cluttered UI
+* Clear distinction between:
+
+  * Caption output
+  * Attention visualization
+
+### 🔹 Why Show Image Preview?
+
+* Improves user trust
+* Confirms correct input
+
+### 🔹 Why Loading Spinner?
+
+* Prevents confusion during inference delay
+* Enhances perceived performance
+
+### 🔹 Why Use FormData?
+
+* Required for file upload
+* Compatible with FastAPI UploadFile
+
+### 🔹 Why Keep Frontend Stateless (for ML)?
+
+* All ML logic handled in backend
+* Keeps frontend lightweight and scalable
+
+---
+
+## ⚠️ Limitations
+
+* No drag-and-drop upload (can be added)
+* No progress bar for long inference
+* No caching of previous results
+
+---
+
+## 🚀 Future Improvements
+
+* Drag-and-drop upload
+* Image history
+* Download caption feature
+* Mobile responsiveness improvements
+* Progressive loading for attention maps
+
+---
+
+## 📌 Summary
+
+#### The frontend is designed to:
+
+* Provide a clean and intuitive interface
+* Act as a bridge between user and ML backend
+* Visualize model outputs effectively
+* Maintain a responsive and smooth user experience
+
+---
