@@ -34,11 +34,11 @@ Generate meaningful natural language captions from images.
 
 ```mermaid
 flowchart LR
-    A[Input Image] --> B[Encoder CNN (ResNet)]
-    B --> C[Feature Map (7x7x2048)]
+    A[Input Image] --> B[Encoder CNN - ResNet]
+    B --> C[Feature Map 7x7x2048]
     C --> D[Attention Mechanism]
     D --> E[Context Vector]
-    E --> F[Decoder (LSTM)]
+    E --> F[Decoder - LSTM]
     F --> G[Word Prediction]
 
 ```
@@ -101,7 +101,7 @@ flowchart LR
     A[Image + Caption] --> B[Preprocessing]
     B --> C[Vocabulary Encoding]
     C --> D[Encoder]
-    D --> E[Decoder (Teacher Forcing)]
+    D --> E[Decoder - Teacher Forcing]
     E --> F[Loss Computation]
     F --> G[Backpropagation]
 
@@ -200,7 +200,7 @@ flowchart LR
 ```mermaid
 flowchart LR
     A[Feature Map] --> B[Attention Weights]
-    B --> C[Reshape (7x7)]
+    B --> C[Reshape 7x7]
     C --> D[Upsample to Image Size]
     D --> E[Overlay Heatmap]
 
