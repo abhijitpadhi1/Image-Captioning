@@ -19,8 +19,8 @@ def load_model(device):
         vocab_size=cfg["vocab_size"]
     ).to(device)
 
-    encoder.load_state_dict(checkpoint["encoder"])
-    decoder.load_state_dict(checkpoint["decoder"])
+    encoder.load_state_dict(checkpoint["encoder"], strict=True)
+    decoder.load_state_dict(checkpoint["decoder"], strict=True)
 
     encoder.eval()
     decoder.eval()

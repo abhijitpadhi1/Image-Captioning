@@ -13,11 +13,16 @@ def get_model_path(local_path="checkpoints/model.pth"):
 
     downloaded_path = hf_hub_download(
         repo_id=HF_REPO_ID,
-        filename=HF_MODEL_FILENAME
+        filename=HF_MODEL_FILENAME,
+        force_download=True
     )
 
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
     shutil.copy(downloaded_path, local_path)
+
+    # Debug: Check if file exists after copying
+    print(f"Model file exists at {local_path}: {os.path.exists(local_path)}")
+    print(f"Model file size: {os.path.getsize(local_path) / 1e6 if os.path.exists(local_path) else 'File not found'} MB")
 
     return local_path
 
