@@ -40,6 +40,7 @@ node_modules/
 .npm
 
 # Model checkpoints 
+vocab.json
 *.ckpt
 *.pt
 *.pth
