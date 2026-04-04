@@ -2,26 +2,10 @@ from PIL import Image
 import torch
 import torchvision.transforms as transforms
 
-from ..training.inference import load_model
-from ..utils.vocab_utils import load_vocab
-from ..utils.config import VOCAB_PATH
+from ..services.model_loader import load_model_and_vocab
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Global cache for vocab and model to avoid reloading on every request
-_encoder = None
-_decoder = None
-_vocab = None
-
-# Load the vocab and model at startup
-def load_model_and_vocab():
-    global _encoder, _decoder, _vocab
-    if _encoder is None or _decoder is None or _vocab is None:
-        print("Loading model and vocab...")
-        _vocab = load_vocab(VOCAB_PATH)
-        _encoder, _decoder = load_model(device)
-        print("Model and vocab loaded.")
-    return _encoder, _decoder, _vocab
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),

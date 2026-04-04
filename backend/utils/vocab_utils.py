@@ -25,16 +25,15 @@ def save_vocab(vocab, path):
     upload_vocab(path)
 
 def load_vocab(path="checkpoints/vocab.json"):
-    if not os.path.exists(path):
-        print("Downloading vocabulary from Hugging Face...")
-        shutil.rmtree("/root/.cache/huggingface", ignore_errors=True)
-        downloaded_path = hf_hub_download(
-            repo_id=HF_REPO_ID,
-            filename=HF_VOCAB_FILENAME,
-            force_download=True
-        )
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        shutil.copy(downloaded_path, path)
+    print("Downloading vocabulary from Hugging Face...")
+    shutil.rmtree("/root/.cache/huggingface", ignore_errors=True)
+    downloaded_path = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename=HF_VOCAB_FILENAME,
+        force_download=True
+    )
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    shutil.copy(downloaded_path, path)
 
     with open(path, "r") as f:
         vocab_dict = json.load(f)

@@ -11,7 +11,7 @@ def load_model(device):
 
     cfg = checkpoint["config"]
 
-    encoder = EncoderCNN().to(device)
+    encoder = EncoderCNN(pretrained=False).to(device)
     decoder = DecoderWithAttention(
         feature_dim=cfg["feature_dim"],
         embed_size=cfg["embed_size"],

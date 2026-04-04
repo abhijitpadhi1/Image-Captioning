@@ -5,10 +5,6 @@ import shutil
 from ..utils.config import HF_REPO_ID, HF_MODEL_FILENAME
 
 def get_model_path(local_path="checkpoints/model.pth"):
-    # If already exists then use it
-    if os.path.exists(local_path):
-        return local_path
-
     print("Downloading model from Hugging Face...")
 
     downloaded_path = hf_hub_download(

@@ -21,7 +21,7 @@ class ModelTrainer:
         self.dataloader = dataloader
         self.transform = transform
 
-        self.encoder = EncoderCNN().to(self.device)
+        self.encoder = EncoderCNN(pretrained=True).to(self.device)
         self.decoder = DecoderWithAttention(
             feature_dim=feature_dim,
             embed_size=embed_size,
