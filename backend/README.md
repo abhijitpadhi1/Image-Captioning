@@ -170,8 +170,8 @@ flowchart LR
 - Measures overlap with ground-truth captions
 - Observed:
 ```
-    Greedy: ~0.14
-    Beam: ~0.42
+    Greedy: ~0.143
+    Beam: ~0.487
 ```
 
 ### Insight
